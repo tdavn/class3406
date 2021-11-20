@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} Log in {% endblock %}
+{% block content %}
+
+<div class="page-content">
+    <section id="featured" class="content-section">
+        <br/>   
+        <h1> Login ... </h1>
+        <br/>
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}  <!-- cross site resquest forgery protection, see more on django doc -->
+                {{ form.as_p }}    <!-- can change as_table, as_ul ... -->
+                <button class="btn btn-secondary">Login</button>
+                <!-- need to define a methods in models to point this post to -->
+            </form>
+        </div>
+    </section>
+</div>
+{% endblock %}

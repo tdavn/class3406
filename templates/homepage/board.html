@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %} Results {% endblock %}
+{% block content %}
+
+<div class="page-content">
+    <section id="featured" class="content-section">
+        <br>
+        <h1> Data Board (demo)</h1>
+        <br><br>
+       
+        {{ api.keys }}
+        {% for search in api %}
+        <h3>Keywords: <b>{{search.search_keys}}</b></h3>
+        <h3>Number of tweets collected: {{search.tweet_no}} </h3>
+        <h3>Tweets after cleaning:</h3> 
+            
+            <br>  {% autoescape off %}{{ search.dataframe }}{% endautoescape %} <br>
+           
+        {% endfor %}
+        <br/>   
+       
+            
+    </section>
+</div>
+{% endblock %}
