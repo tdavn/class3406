@@ -1,25 +1,81 @@
 {% extends 'base.html' %}
 {% block title %} Results {% endblock %}
 {% block content %}
-
+{% load static %}
 <div class="page-content">
     <section id="featured" class="content-section">
         <br>
-        <h1> Data Board (demo)</h1>
+        <h1> TweetAnalyz Statistics</h1>
         <br><br>
-       
-        {{ api.keys }}
-        {% for search in api %}
-        <h3>Keywords: <b>{{search.search_keys}}</b></h3>
-        <h3>Number of tweets collected: {{search.tweet_no}} </h3>
-        <h3>Tweets after cleaning:</h3> 
-            
-            <br>  {% autoescape off %}{{ search.dataframe }}{% endautoescape %} <br>
-           
-        {% endfor %}
-        <br/>   
-       
-            
+
+        <div class="section-heading">
+            <h1><em>Basic Info.</em></h1>
+
+
+        </div>
+
+        <h3>Keywords: <b>{{search_keys}}</b></h3>
+        <h3>Number of tweets collected: {{tweet_no}} </h3>
+        <h3>Tweets after cleaning:</h3>
+
+            <br>  {% autoescape off %}{{ df }}{% endautoescape %} <br>
+
+
+        <br>
+        <div class="section-heading">
+            <h1>Sentiment<br><em>Characteristics</em></h1>
+            <p>How do they think about? </p>
+        </div>
+
+          <img src="{% static 'homepage/img/sent.png' %}">
+
+          <br><br>
+          <p>test modal </p>
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#sentiment">
+            See more
+          </button>
+
+
+      <br><br>
+      <div class="section-heading">
+          <h1>Popular<br><em>Tweet Words</em></h1>
+          <p>Display all most popular word in Positive tweets or
+          <br>Negative tweets. </p>
+
+
+
+
+      </div>
+      <div class="col-md-6">
+        <legend>Words in Negative</legend>
+        <img src="{% static 'homepage/img/wordcloud_n.png' %}">
+      </div>
+
+      <div class="col-md-6">
+        <legend>Words in Posive</legend>
+        <img src="{% static 'homepage/img/wordcloud_p.png' %}">
+      </div>
     </section>
+
+    <div class="modal fade" id="sentiment" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                 <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                 <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+                 <h4 class="modal-title" id="modalLabel">Sentiment Overview</h4>
+                 </div>
+                 <div class="modal-body">
+                     <p>Monitoring twitter data on an ongoing basis, </p>
+                       <img src="{% static 'homepage/img/sent.png' %}">
+                 </div>
+                 <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 </div>
+                 </div>
+                 </div>
+             </div>
+
 </div>
 {% endblock %}
