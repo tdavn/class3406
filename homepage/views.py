@@ -145,57 +145,32 @@ def word_cloud(text, name):
     image_64 = 'data:image/png;base64,' + urllib.parse.quote(string)
     return image_64
 
-def success(request, *args, **kwargs):
-    import json
-    import requests
-
-    api_request = requests.get('http://localhost:8000/apiclassifier/')
-    api = json.loads(api_request.content)
-    p_words = api['p_words']
-    return render(request, 'homepage/board.html', {'api':api})
-
 # def success(request, *args, **kwargs):
-#     tweet_dt = Tweet_store.objects.last()
-#     # tweet_dt = Tweet_store.objects.filter()
-#     df = tweet_dt.dataframe
-#     search_keys = tweet_dt.search_keys
-#     tweet_no = tweet_dt.tweet_no
-#     p_words = tweet_dt.p_words
-#     n_words = tweet_dt.n_words
-#     import os
-#     SETTINGS_DIR = os.path.dirname(__file__)
-#     print(SETTINGS_DIR)
-#     print(BASE_DIR)
-#     # print('negative: ', n_words)
-#     # wordcloud_p = word_cloud(p_words)
-#     wordcloud_n = word_cloud(n_words, 'n')
-#     wordcloud_p = word_cloud(p_words, 'p')
+#     '''Using GET to listen to endpoints'''
+#     import json
+#     import requests
 #
-#     return render(request, 'homepage/board.html', {'search_keys': search_keys, 'tweet_no':tweet_no, 'df':df, 'wordcloud_n': wordcloud_n, 'wordcloud_p':wordcloud_p})
+#     api_request = requests.get('/apiclassifier/')
+#     api = json.loads(api_request.content)
+#     p_words = api['p_words']
+#     return render(request, 'homepage/board.html', {'api':api})
 
+def success(request, *args, **kwargs):
+    '''Django direct access to db'''
+    tweet_dt = Tweet_store.objects.last()
+    # tweet_dt = Tweet_store.objects.filter()
+    df = tweet_dt.dataframe
+    search_keys = tweet_dt.search_keys
+    tweet_no = tweet_dt.tweet_no
+    p_words = tweet_dt.p_words
+    n_words = tweet_dt.n_words
+    import os
+    SETTINGS_DIR = os.path.dirname(__file__)
+    print(SETTINGS_DIR)
+    print(BASE_DIR)
+    # print('negative: ', n_words)
+    # wordcloud_p = word_cloud(p_words)
+    wordcloud_n = word_cloud(n_words, 'n')
+    wordcloud_p = word_cloud(p_words, 'p')
 
-
-
-
-
-        # ouput is df
-
-        # Processing step
-
-
-        # Model load and applying
-
-
-
-
-    # def post(self, request):
-    #     info = self.request.POST
-    #     ContactMessage.objects.create(
-    #     name = info['name'],
-    #     email = info['email'],
-    #     message = info['message']
-    #     )
-    #     context = {
-    #     'temp_mes': 'Your message has been recored. Thank you!',
-    #     }
-    #     return render(request, self.template_name, context)
+    return render(request, 'homepage/board.html', {'search_keys': search_keys, 'tweet_no':tweet_no, 'df':df, 'wordcloud_n': wordcloud_n, 'wordcloud_p':wordcloud_p})
